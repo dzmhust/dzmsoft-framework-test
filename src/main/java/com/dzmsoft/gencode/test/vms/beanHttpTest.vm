@@ -1,0 +1,46 @@
+package $!{bean.basePackage}.http;
+
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.Test;
+
+import com.dzmsoft.framework.base.util.HttpUtil;
+
+/**
+ * Copyright (C), dzmsoft Co., Ltd
+ * @author $!{annotation.authorName}
+ * @date $!{annotation.date}
+ *
+ * @version $!{annotation.version}
+ */
+public class $!{bean.name}HttpTest {
+	/**
+	 * 请求路径
+	 */
+	private static final String ctx = "";
+	
+	#foreach($method in $!controllerHttpBeans)
+	#set($methodName =  $method.methodName + "_http_test()")
+	/**
+	 * $method.methodName 单元测试
+	 * @dzmsoftgenerated $!{annotation.date}
+	 * @return
+	 */
+	@Test
+    public void $methodName{
+    	String iface = "$method.iface";
+        String uri = ctx + iface;
+        // 设置参数
+        Map<String, String> params = new HashMap<String, String>();
+        //
+        #if($method.reqMethod == 'GET')
+        String result = HttpUtil.doGet(uri, params);
+        #else
+        String result = HttpUtil.doPost(uri, params);
+        #end
+        System.out.println(result);
+    }
+	#end
+
+	
+}
